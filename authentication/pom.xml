@@ -6,11 +6,11 @@
 		<groupId>com.ybing</groupId>
 		<artifactId>ybing</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ybing.authentication</groupId>
 	<artifactId>authentication</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>authentication</name>
 	<description>Ybing authentication project for Spring Boot</description>
 
@@ -52,6 +52,16 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>com.github.ulisesbocchio</groupId>
+			<artifactId>jasypt-spring-boot-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+		</dependency>
 	</dependencies>
 
 
@@ -63,5 +73,28 @@
 			</plugin>
 		</plugins>
 	</build>
+	<profiles>
+		<profile>
+			<id>liquibase</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.liquibase</groupId>
+						<artifactId>liquibase-maven-plugin</artifactId>
+						<version>3.5.3</version>
+						<configuration>
+							<propertyFile>database.properties</propertyFile>
+							<changeLogFile>src/main/resources/db/changelog/master.xml</changeLogFile>
+							<promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+							<rollbackCount>1</rollbackCount>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>
