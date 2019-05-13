@@ -1,2 +1,0 @@
-# ybing
-ybing project
