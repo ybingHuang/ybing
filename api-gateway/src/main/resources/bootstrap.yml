@@ -7,10 +7,10 @@ spring:
         locator:
           lower-case-service-id: true
 #      routes:
-#        - id: AUTHENTICATION
-#          uri: lb://AUTHENTICATION
-#          predicates:
-#            - Path: /spring/authentication
+#      - id: AUTHENTICATION
+#        uri: lb://AUTHENTICATION
+#        predicates:
+#        - Path: /spring/authentication
 server:
   port: 18080
 

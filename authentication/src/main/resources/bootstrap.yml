@@ -4,6 +4,7 @@ spring:
 server:
   port: 18081
 
+
 logging:
   file: logs/spring.log
   file.max-size: 10MB

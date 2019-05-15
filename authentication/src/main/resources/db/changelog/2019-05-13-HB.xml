@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+
+    <changeSet id="1" author="niko">
+        <createTable tableName="role">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="id"/>
+            </column>
+            <column name="name" type="varchar(30)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="description" type="varchar(100)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="creator" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_by" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <sql>
+            alter table role add column create_time timestamp not null default CURRENT_TIMESTAMP;
+            alter table role add column update_time timestamp not null default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP;
+        </sql>
+    </changeSet>
+
+    <changeSet id="2" author="niko">
+        <createTable tableName="user">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKeyName="id" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="tinyint(8)" remarks="0:待审核; 1: 审核通过; -1: 未审核通过; -2: 账号不可用">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" type="varchar(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="last_name" type="varchar(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="email" type="varchar(100)"/>
+            <column name="phone_no" type="char(11)"/>
+            <column name="creator" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_by" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <sql>
+            alter table user add column create_time timestamp not null default CURRENT_TIMESTAMP;
+            alter table user add column update_time timestamp not null default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP;
+        </sql>
+        <createIndex tableName="user" indexName="idx_name">
+            <column name="name"></column>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="3" author="niko">
+        <createTable tableName="user_role">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="id"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creator" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_by" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <sql>
+            alter table user_role add column create_time timestamp not null default CURRENT_TIMESTAMP;
+            alter table user_role add column update_time timestamp not null default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP;
+        </sql>
+        <createIndex tableName="user_role" indexName="idx_user_id">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="4" author="niko">
+        <createTable tableName="client_detail">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKeyName="id" primaryKey="true"/>
+            </column>
+            <column name="code" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="tinyint(8)" remarks="0:待审核; 1: 审核通过; -1: 未审核通过; -2: 被禁"/>
+            <column name="client_secret" type="varchar(50)"/>
+            <column name=" scope" type="varchar(32)"/>
+            <column name="authorized_grant_types" type="varchar(32)"/>
+            <column name="redirect_uri" type="varchar(256)"/>
+            <column name="access_token_validity" type="tinyint(1)"/>
+            <column name="refresh_token_validity" type="tinyint(1)"/>
+            <column name="creator" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_by" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <sql>
+            alter table client_detail add column create_time timestamp not null default CURRENT_TIMESTAMP;
+            alter table client_detail add column update_time timestamp not null default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP;
+        </sql>
+        <createIndex tableName="client_detail" indexName="idx_code">
+            <column name="code"/>
+        </createIndex>
+    </changeSet>
+
+
+</databaseChangeLog>
