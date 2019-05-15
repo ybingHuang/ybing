@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
@@ -13,6 +14,7 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @ToString
+@Entity
 @Table(name = "client_detail")
 public class YbingClientDetail extends YbingBaseEntity {
 

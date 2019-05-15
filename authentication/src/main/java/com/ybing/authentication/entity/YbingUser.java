@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by niko on 2019/5/15.
@@ -16,6 +13,7 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @ToString
+@Entity
 @Table(name="user")
 public class YbingUser extends YbingBaseEntity {
 
