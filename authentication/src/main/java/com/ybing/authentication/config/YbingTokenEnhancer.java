@@ -1,6 +1,6 @@
 package com.ybing.authentication.config;
 
-import com.ybing.authentication.struct.YbingUserDetail;
+import com.ybing.authentication.struct.YbingUserDetailDTO;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -19,7 +19,7 @@ public class YbingTokenEnhancer implements TokenEnhancer {
         if(authentication == null || authentication.getPrincipal() == null) {
             return accessToken;
         }
-        YbingUserDetail userDetail = (YbingUserDetail)authentication.getPrincipal();
+        YbingUserDetailDTO userDetail = (YbingUserDetailDTO)authentication.getPrincipal();
         Map<String, Object> prop = new HashMap();
         prop.put("firstName", userDetail.getFirstName());
         prop.put("lastName", userDetail.getLastName());

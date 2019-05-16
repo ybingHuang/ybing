@@ -105,12 +105,15 @@
                 <constraints nullable="false"/>
             </column>
             <column name="status" type="tinyint(8)" remarks="0:待审核; 1: 审核通过; -1: 未审核通过; -2: 被禁"/>
+            <column name="resource_ids" type="varchar(200)"/>
             <column name="client_secret" type="varchar(50)"/>
-            <column name=" scope" type="varchar(32)"/>
+            <column name="scope" type="varchar(32)"/>
             <column name="authorized_grant_types" type="varchar(32)"/>
-            <column name="redirect_uri" type="varchar(256)"/>
-            <column name="access_token_validity" type="tinyint(1)"/>
-            <column name="refresh_token_validity" type="tinyint(1)"/>
+            <column name="registered_redirect_uri" type="varchar(500)"/>
+            <column name="authorities" type="varchar(200)"/>
+            <column name="access_token_validity_seconds" type="int"/>
+            <column name="refresh_token_validity_seconds" type="int"/>
+            <column name="additional_information" type="varchar(4000)"/>
             <column name="creator" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>

@@ -14,7 +14,19 @@ import java.util.Collection;
 @Setter
 @Getter
 @ToString
-public class YbingClientUserDetail implements UserDetails {
+public class YbingUserDetailDTO implements UserDetails {
+
+    private Long id;
+
+    private String name;
+
+    private String email;
+
+    private String phoneNo;
+
+    private String firstName;
+
+    private String lastName;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

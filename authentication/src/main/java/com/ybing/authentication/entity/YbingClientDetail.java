@@ -27,19 +27,29 @@ public class YbingClientDetail extends YbingBaseEntity {
     @Column(name = "client_secret")
     private String clientSecret;
 
+    @Column(name = "resource_ids")
+    private String resourceIds;
+
     @Column(name = "scope")
     private String scope;
 
     @Column(name = "authorized_grant_types")
     private String authorizedGrantType;
 
-    @Column(name = "redirect_uri")
-    private String redirectUri;
+    @Column(name = "registered_redirect_uri")
+    private String registeredRedirectUri;
 
-    @Column(name = "access_token_validity")
-    private Boolean accessTokenValidity;
+    @Column(name = "authorities")
+    private String authorities;
 
-    @Column(name = "refresh_token_validity")
-    private Boolean refreshTokenValidity;
+    @Column(name = "access_token_validity_seconds")
+    private Integer accessTokenValiditySeconds;
+
+    @Column(name = "refresh_token_validity_seconds")
+    private Integer refreshTokenValiditySeconds;
+
+    @Column(name = "additional_information")
+    private String additionalInformation;
+
 
 }
