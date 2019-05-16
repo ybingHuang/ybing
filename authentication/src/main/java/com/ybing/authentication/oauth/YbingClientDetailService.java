@@ -1,4 +1,4 @@
-package com.ybing.authentication.service;
+package com.ybing.authentication.oauth;
 
 import com.ybing.authentication.entity.YbingClientDetail;
 import com.ybing.authentication.repositories.YbingClientDetailRepository;

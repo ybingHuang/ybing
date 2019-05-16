@@ -1,7 +1,7 @@
 package com.ybing.authentication.config;
 
 import com.ybing.authentication.oauth.YbingAuthenticationProvider;
-import com.ybing.authentication.service.YbingClientDetailService;
+import com.ybing.authentication.oauth.YbingClientDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
