@@ -30,8 +30,7 @@ public class YbingUser extends YbingBaseEntity {
     private String lastName;
 
     @Column(name = "status")
-    @Enumerated(EnumType.STRING)
-    private YbingUserStatusEnum status;
+    private int status;
 
     @Column(name = "email")
     private String email;

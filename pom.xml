@@ -22,6 +22,8 @@
 		<oauth2-verion>2.3.4.RELEASE</oauth2-verion>
 		<security-jwt-versio>1.0.10.RELEASE</security-jwt-versio>
 		<fastjson-version>1.2.38</fastjson-version>
+		<druid-verion>1.1.16</druid-verion>
+		<druid-spring-boot-version>1.1.16</druid-spring-boot-version>
 	</properties>
 
 	<dependencyManagement>
@@ -56,6 +58,18 @@
 				<groupId>com.alibaba</groupId>
 				<artifactId>fastjson</artifactId>
 				<version>${fastjson-version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>druid</artifactId>
+				<version>${druid-verion}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>druid-spring-boot-starter</artifactId>
+				<version>${druid-spring-boot-version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

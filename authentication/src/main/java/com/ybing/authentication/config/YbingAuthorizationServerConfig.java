@@ -2,6 +2,7 @@ package com.ybing.authentication.config;
 
 import com.ybing.authentication.oauth.YbingAuthenticationProvider;
 import com.ybing.authentication.oauth.YbingClientDetailService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,13 +27,11 @@ import java.util.concurrent.TimeUnit;
  */
 @Configuration
 @EnableAuthorizationServer
+@Slf4j
 public class YbingAuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
     private AuthenticationManager ybingAuthenticationProvider;
-
-    @Autowired
-    private YbingTokenEnhancer ybingTokenEnhancer;
 
     @Autowired
     private JwtTokenStore jwtTokenStore;
@@ -42,6 +41,10 @@ public class YbingAuthorizationServerConfig extends AuthorizationServerConfigure
 
     @Autowired
     private YbingClientDetailService ybingClientDetailService;
+
+    @Autowired
+    private YbingTokenEnhancer ybingTokenEnhancer;
+
 
 
     @Override
@@ -82,5 +85,10 @@ public class YbingAuthorizationServerConfig extends AuthorizationServerConfigure
     @Bean(name = "ybingAuthenticationProvider")
     public AuthenticationManager authenticationManager() {
         return new YbingAuthenticationProvider();
+    }
+
+    @Bean
+    public YbingClientDetailService ybingClientDetailService() {
+        return new YbingClientDetailService();
     }
 }

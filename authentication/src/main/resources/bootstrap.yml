@@ -1,10 +1,17 @@
 spring:
   application:
     name: authentication
+  datasource:
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      initial-size: 10
+      max-active: 20
+      min-idle: 5
+      max-wait: 3000
+
+
 server:
   port: 18081
-
-
 logging:
   file: logs/spring.log
   file.max-size: 10MB

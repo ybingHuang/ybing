@@ -40,7 +40,7 @@ public class YbingJpaConfig {
         return factoryBean.getObject();
     }
 
-    @Bean
+    @Bean("transactionManager")
     public PlatformTransactionManager platformTransactionManager() {
         JpaTransactionManager jpaTransactionManager = new JpaTransactionManager();
         jpaTransactionManager.setEntityManagerFactory(entityManagerFactory());

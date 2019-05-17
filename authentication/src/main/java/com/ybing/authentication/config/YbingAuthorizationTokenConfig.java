@@ -26,7 +26,7 @@ public class YbingAuthorizationTokenConfig {
     }
 
     @Bean(name = "ybingTokenEnhancer")
-    public TokenEnhancer tokenEnhancer() {
+    public YbingTokenEnhancer tokenEnhancer() {
         return new YbingTokenEnhancer();
     }
 

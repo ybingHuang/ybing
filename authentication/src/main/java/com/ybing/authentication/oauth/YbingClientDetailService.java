@@ -16,7 +16,6 @@ import java.util.Objects;
 /**
  * Created by niko on 2019/5/16.
  */
-@Service
 @Slf4j
 public class YbingClientDetailService implements ClientDetailsService {
 
