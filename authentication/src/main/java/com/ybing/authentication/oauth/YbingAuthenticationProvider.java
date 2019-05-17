@@ -1,7 +1,10 @@
 package com.ybing.authentication.oauth;
 
+import com.ybing.authentication.service.YbingUserDetailService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 
@@ -11,8 +14,13 @@ import org.springframework.security.core.AuthenticationException;
 @Slf4j
 public class YbingAuthenticationProvider implements AuthenticationManager {
 
+    @Autowired
+    private YbingUserDetailService userDetailService;
+
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
+
         return null;
     }
 }
