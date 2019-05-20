@@ -1,14 +1,13 @@
 package com.ybing.authentication.oauth;
 
 import com.ybing.authentication.entity.YbingClientDetail;
-import com.ybing.authentication.repositories.YbingClientDetailRepository;
+import com.ybing.authentication.mapper.YbingClientDetailMapper;
 import com.ybing.authentication.struct.YbingClientDetailDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.ClientRegistrationException;
-import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.Objects;
@@ -20,7 +19,7 @@ import java.util.Objects;
 public class YbingClientDetailService implements ClientDetailsService {
 
     @Autowired
-    private YbingClientDetailRepository ybingClientDetailRepository;
+    private YbingClientDetailMapper ybingClientDetailMapper;
 
     @Override
     public ClientDetails loadClientByClientId(String clientId) throws ClientRegistrationException {
@@ -28,7 +27,9 @@ public class YbingClientDetailService implements ClientDetailsService {
             return null;
         }
 
-        YbingClientDetail clientDetail = ybingClientDetailRepository.findYbingClientDetailByCode(clientId);
+        YbingClientDetail clientParam = new YbingClientDetail();
+        clientParam.setCode(clientId);
+        YbingClientDetail clientDetail = ybingClientDetailMapper.selectOne(clientParam);
         if(Objects.isNull(clientDetail)) {
             return null;
         }

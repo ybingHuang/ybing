@@ -41,6 +41,6 @@ public class YbingWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncryptor() {
-        return new BCryptPasswordEncoder(20);
+        return new BCryptPasswordEncoder();
     }
 }
