@@ -5,6 +5,7 @@ import com.ybing.authentication.mapper.YbingClientDetailMapper;
 import com.ybing.authentication.struct.YbingClientDetailDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.ClientRegistrationException;
@@ -21,6 +22,9 @@ public class YbingClientDetailService implements ClientDetailsService {
     @Autowired
     private YbingClientDetailMapper ybingClientDetailMapper;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public ClientDetails loadClientByClientId(String clientId) throws ClientRegistrationException {
         if(StringUtils.isEmpty(clientId)) {
@@ -31,6 +35,9 @@ public class YbingClientDetailService implements ClientDetailsService {
         clientParam.setCode(clientId);
         YbingClientDetail clientDetail = ybingClientDetailMapper.selectOne(clientParam);
         if(Objects.isNull(clientDetail)) {
+            return null;
+        }
+        if(!passwordEncoder.matches("asdfg",clientDetail.getClientSecret())) {
             return null;
         }
         return new YbingClientDetailDTO(clientDetail);

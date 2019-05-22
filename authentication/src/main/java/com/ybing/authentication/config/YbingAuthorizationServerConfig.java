@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -18,6 +20,7 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -45,15 +48,24 @@ public class YbingAuthorizationServerConfig extends AuthorizationServerConfigure
     @Autowired
     private YbingTokenEnhancer ybingTokenEnhancer;
 
+    @Autowired
+    private DataSource dataSource;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        super.configure(security);
+        //super.configure(security);
+        security.passwordEncoder(passwordEncoder).tokenKeyAccess("permitAll()")
+                .checkTokenAccess("permitAll()")
+                .allowFormAuthenticationForClients();
     }
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        //clients.jdbc(dataSource).passwordEncoder(passwordEncoder);
         clients.withClientDetails(ybingClientDetailService);
     }
 
@@ -90,5 +102,12 @@ public class YbingAuthorizationServerConfig extends AuthorizationServerConfigure
     @Bean
     public YbingClientDetailService ybingClientDetailService() {
         return new YbingClientDetailService();
+    }
+
+    //@Bean
+    public DaoAuthenticationProvider daoAuthenticationProvider() {
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
+        return daoAuthenticationProvider;
     }
 }

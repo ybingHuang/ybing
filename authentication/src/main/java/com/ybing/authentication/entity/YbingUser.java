@@ -30,7 +30,7 @@ public class YbingUser extends YbingBaseEntity {
     private String lastName;
 
     @Column(name = "status")
-    private int status;
+    private Integer status;
 
     @Column(name = "email")
     private String email;

@@ -7,11 +7,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.util.StringUtils;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by niko on 2019/5/16.
@@ -55,7 +57,9 @@ public class YbingClientDetailDTO implements ClientDetails {
         this.scope = StringUtils.isEmpty(scope) ? null : new HashSet(Arrays.asList(scope.split(",")));
         this.authorizedGrantTypes = StringUtils.isEmpty(grantType) ? null : new HashSet(Arrays.asList(grantType.split(",")));
         this.registeredRedirectUri = StringUtils.isEmpty(redirectUri) ? null : new HashSet(Arrays.asList(redirectUri.split(",")));
-        this.authorities = StringUtils.isEmpty(authorities) ? null : new HashSet(Arrays.asList(authorities.split(",")));
+        if(!StringUtils.isEmpty(authorities)) {
+            this.authorities = Arrays.asList(authorities.split(",")).stream().map(auth -> new SimpleGrantedAuthority(auth)).collect(Collectors.toList());
+        }
         this.accessTokenValiditySeconds = ybingClientDetail.getAccessTokenValiditySeconds();
         this.refreshTokenValiditySeconds = ybingClientDetail.getRefreshTokenValiditySeconds();
         this.additionalInformation = StringUtils.isEmpty(additionalInfo) ? null  : (Map)JSON.parse(additionalInfo);

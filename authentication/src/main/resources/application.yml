@@ -18,6 +18,7 @@ spring:
 #        dialect: org.hibernate.dialect.MySQL5Dialect
   liquibase:
     change-log: classpath:/db/changelog/master.xml
+
 mapper:
   not-empty: true
   mappers: com.ybing.authentication.common.YbingBaseMapper
