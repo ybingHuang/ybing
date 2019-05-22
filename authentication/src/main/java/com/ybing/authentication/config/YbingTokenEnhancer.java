@@ -8,6 +8,7 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by niko on 2019/5/16.
@@ -25,6 +26,9 @@ public class YbingTokenEnhancer implements TokenEnhancer {
         prop.put("lastName", userDetail.getLastName());
         prop.put("email", userDetail.getEmail());
         prop.put("phone", userDetail.getPhoneNo());
+        if(userDetail.getAuthorities() != null) {
+            prop.put("role", userDetail.getAuthorities().stream().map(auth -> auth.getAuthority()).collect(Collectors.joining(",")));
+        }
         prop.put("id", userDetail.getId());
         ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(prop);
         return accessToken;

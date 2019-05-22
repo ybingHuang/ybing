@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
  * Created by niko on 2019/5/16.
  */
 @Setter
-@Getter
 @ToString
 public class YbingUserDetailDTO implements UserDetails {
 
@@ -49,7 +48,7 @@ public class YbingUserDetailDTO implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return this.authorities;
     }
 
     @Override
@@ -59,7 +58,7 @@ public class YbingUserDetailDTO implements UserDetails {
 
     @Override
     public String getUsername() {
-        return null;
+        return this.name;
     }
 
     @Override
@@ -80,5 +79,29 @@ public class YbingUserDetailDTO implements UserDetails {
     @Override
     public boolean isEnabled() {
         return false;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhoneNo() {
+        return phoneNo;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 }

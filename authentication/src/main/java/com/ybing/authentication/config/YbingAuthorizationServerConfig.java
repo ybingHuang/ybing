@@ -77,20 +77,20 @@ public class YbingAuthorizationServerConfig extends AuthorizationServerConfigure
         chain.setTokenEnhancers(list);
 
         DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
+
+        endpoints.tokenStore(jwtTokenStore)
+                .tokenEnhancer(chain)
+                .authenticationManager(ybingAuthenticationProvider)
+                .accessTokenConverter(jwtAccessTokenConverter)
+                .tokenServices(defaultTokenServices)
+                .setClientDetailsService(ybingClientDetailService);
+
         defaultTokenServices.setTokenStore(endpoints.getTokenStore());
         defaultTokenServices.setClientDetailsService(endpoints.getClientDetailsService());
         defaultTokenServices.setReuseRefreshToken(true);
         defaultTokenServices.setSupportRefreshToken(true);
         defaultTokenServices.setTokenEnhancer(endpoints.getTokenEnhancer());
         defaultTokenServices.setAccessTokenValiditySeconds((int)TimeUnit.DAYS.toSeconds(1));
-
-        endpoints.tokenStore(jwtTokenStore)
-                .tokenEnhancer(chain)
-                .authenticationManager(ybingAuthenticationProvider)
-                .accessTokenConverter(jwtAccessTokenConverter)
-               // .userDetailsService()
-                .tokenServices(defaultTokenServices)
-                .setClientDetailsService(ybingClientDetailService);
 
     }
 
@@ -102,12 +102,5 @@ public class YbingAuthorizationServerConfig extends AuthorizationServerConfigure
     @Bean
     public YbingClientDetailService ybingClientDetailService() {
         return new YbingClientDetailService();
-    }
-
-    //@Bean
-    public DaoAuthenticationProvider daoAuthenticationProvider() {
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
-        return daoAuthenticationProvider;
     }
 }
