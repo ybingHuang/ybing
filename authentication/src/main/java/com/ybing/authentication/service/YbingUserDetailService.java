@@ -30,7 +30,7 @@ public class YbingUserDetailService {
         YbingUser userParam = new YbingUser();
         userParam.setName(username);
         YbingUser user = ybingUserMapper.selectOne(userParam);
-        if(!passwordEncoder.matches(user.getPassword(), password)) {
+        if(!passwordEncoder.matches(password, user.getPassword())) {
             return null;
         }
         List<YbingRole> roles = ybingRoleMapper.selectRoleByUserId(user.getId());

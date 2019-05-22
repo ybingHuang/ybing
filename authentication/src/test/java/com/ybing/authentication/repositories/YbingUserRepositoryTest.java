@@ -43,4 +43,13 @@ public class YbingUserRepositoryTest {
         user = ybingUserMapper.selectByPrimaryKey(2);
         System.out.println("user name : "+ user.getName());
     }
+
+
+    @Test
+    public void pwdTest() {
+        String pwd = "qrafzv!24";
+        String pwdEncode = passwordEncoder.encode(pwd);
+        System.out.println("-------test passwordEncode------"+passwordEncoder.matches(pwd, pwdEncode));
+        System.out.println("-------test passwordEncode------"+pwdEncode);
+    }
 }

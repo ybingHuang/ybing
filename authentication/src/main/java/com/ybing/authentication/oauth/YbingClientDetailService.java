@@ -37,9 +37,6 @@ public class YbingClientDetailService implements ClientDetailsService {
         if(Objects.isNull(clientDetail)) {
             return null;
         }
-        if(!passwordEncoder.matches("asdfg",clientDetail.getClientSecret())) {
-            return null;
-        }
         return new YbingClientDetailDTO(clientDetail);
     }
 }

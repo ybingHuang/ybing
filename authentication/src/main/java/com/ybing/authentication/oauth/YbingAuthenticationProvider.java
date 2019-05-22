@@ -25,7 +25,8 @@ public class YbingAuthenticationProvider implements AuthenticationManager {
         UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
         YbingUserDetailDTO userDetailDTO = userDetailService.loadUser((String) token.getPrincipal(), (String) token.getCredentials());
         if (!Objects.isNull(userDetailDTO)) {
-            return new UsernamePasswordAuthenticationToken(userDetailDTO, null);
+            UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetailDTO, null, userDetailDTO.getAuthorities());
+            return auth;
         }
         return null;
     }
