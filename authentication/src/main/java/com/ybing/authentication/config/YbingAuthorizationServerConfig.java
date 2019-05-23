@@ -49,15 +49,11 @@ public class YbingAuthorizationServerConfig extends AuthorizationServerConfigure
     private YbingTokenEnhancer ybingTokenEnhancer;
 
     @Autowired
-    private DataSource dataSource;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        //super.configure(security);
         security.passwordEncoder(passwordEncoder).tokenKeyAccess("permitAll()")
                 .checkTokenAccess("permitAll()")
                 .allowFormAuthenticationForClients();
@@ -65,7 +61,6 @@ public class YbingAuthorizationServerConfig extends AuthorizationServerConfigure
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        //clients.jdbc(dataSource).passwordEncoder(passwordEncoder);
         clients.withClientDetails(ybingClientDetailService);
     }
 
@@ -83,6 +78,7 @@ public class YbingAuthorizationServerConfig extends AuthorizationServerConfigure
                 .authenticationManager(ybingAuthenticationProvider)
                 .accessTokenConverter(jwtAccessTokenConverter)
                 .tokenServices(defaultTokenServices)
+                .prefix("/ybing/auth")
                 .setClientDetailsService(ybingClientDetailService);
 
         defaultTokenServices.setTokenStore(endpoints.getTokenStore());
