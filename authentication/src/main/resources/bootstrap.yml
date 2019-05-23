@@ -8,15 +8,18 @@ spring:
       max-active: 20
       min-idle: 5
       max-wait: 3000
-#  mvc:
-#    servlet:
-#      path: /auth
-
+  mvc:
+    servlet:
+      path: /ybing/auth
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
 
 server:
   port: 18081
-#  servlet:
-#      context-path: /
+  servlet:
+      context-path: /
 logging:
   file: logs/spring.log
   file.max-size: 10MB

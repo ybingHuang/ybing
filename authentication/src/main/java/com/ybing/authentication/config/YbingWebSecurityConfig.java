@@ -29,22 +29,19 @@ public class YbingWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
+        //web.ignoring().antMatchers("/resources/**");
         super.configure(web);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.formLogin()
-//                .loginProcessingUrl("/login").permitAll()
-//                .and()
-        http
-                //.setSharedObject(ybingAuthenticationProvider)
-//                .requestMatchers()
-//                    .antMatchers("/oauth/**")
-//                .and()
+        http.formLogin()
+                .loginPage("/ybing/auth/login").permitAll()
+                .and()
                 .csrf().disable()
                 .authorizeRequests()
-   //             .antMatchers("/oauth/token").permitAll()
+                .antMatchers("/ybing/auth/js/**").permitAll()
+                .antMatchers("/ybing/auth/css/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -53,6 +50,5 @@ public class YbingWebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncryptor() {
         return new BCryptPasswordEncoder();
-        //return new Pbkdf2PasswordEncoder();
     }
 }

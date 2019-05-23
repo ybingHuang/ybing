@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="text/html">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>oauth</title>
+</head>
+<body>
+<div id="app">
+        <input type="text" id="username" style="width: 300px" placeholder="用户名"/>
+        <input type="password" id="password" style="width: 300px" placeholder="密码">
+        <button type="submit" style="width: 300px" onclick="login()">登录</button>
+</div>
+</body>
+<script  src="/ybing/auth/js/jquery-3.3.1.js" type="text/javascript"></script>
+<script>
+    function login() {
+        var username = $('#username').val();
+        var password = $('#password').val();
+        $.ajax({
+            type: 'POST',
+            url: '/spring/login',
+            data: JSON.stringify({"username": username, "password": password}),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function(data) {
+                alert('success');
+            }
+        });
+    }
+</script>
+</html>

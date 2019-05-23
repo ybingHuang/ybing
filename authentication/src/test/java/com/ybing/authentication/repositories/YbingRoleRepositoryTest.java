@@ -20,7 +20,7 @@ public class YbingRoleRepositoryTest {
     @Autowired
     private YbingRoleMapper ybingRoleMapper;
 
-    @Test
+
     public void save() {
         YbingRole role = new YbingRole();
         role.setName("test2");
