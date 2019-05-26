@@ -28,16 +28,18 @@ public class YbingWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin()
-                .loginPage("/ybing/auth/login").permitAll()
-                .and()
-                .csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/ybing/auth/js/**").permitAll()
-                .antMatchers("/ybing/auth/css/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//        http.formLogin()
+//                .loginPage("/ybing/auth/login").permitAll()
+//                .and()
+//                .csrf().disable()
+//                .authorizeRequests()
+//                .antMatchers("/ybing/auth/js/**").permitAll()
+//                .antMatchers("/ybing/auth/css/**").permitAll()
+//                .antMatchers("/ybing/auth/test").permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        super.configure(http);
     }
 
     @Bean

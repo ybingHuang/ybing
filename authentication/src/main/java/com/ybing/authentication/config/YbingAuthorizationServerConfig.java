@@ -2,12 +2,13 @@ package com.ybing.authentication.config;
 
 import com.ybing.authentication.oauth.YbingAuthenticationProvider;
 import com.ybing.authentication.oauth.YbingClientDetailService;
+import com.ybing.authentication.oauth.YbingTokenEnhancer;
+import com.ybing.authentication.service.YbingUserDetailService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -20,7 +21,6 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
-import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -51,6 +51,9 @@ public class YbingAuthorizationServerConfig extends AuthorizationServerConfigure
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private YbingUserDetailService ybingUserDetailService;
+
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
@@ -78,6 +81,7 @@ public class YbingAuthorizationServerConfig extends AuthorizationServerConfigure
                 .authenticationManager(ybingAuthenticationProvider)
                 .accessTokenConverter(jwtAccessTokenConverter)
                 .tokenServices(defaultTokenServices)
+                .userDetailsService(ybingUserDetailService)
                 .prefix("/ybing/auth")
                 .setClientDetailsService(ybingClientDetailService);
 

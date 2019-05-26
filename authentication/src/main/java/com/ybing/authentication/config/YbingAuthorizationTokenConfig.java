@@ -1,8 +1,14 @@
 package com.ybing.authentication.config;
 
+import com.ybing.authentication.oauth.YbingTokenEnhancer;
+import com.ybing.authentication.service.YbingUserDetailService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.AccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.DefaultUserAuthenticationConverter;
+import org.springframework.security.oauth2.provider.token.UserAuthenticationConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
@@ -11,6 +17,9 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
  */
 @Configuration
 public class YbingAuthorizationTokenConfig {
+
+    @Autowired
+    private YbingUserDetailService ybingUserDetailService;
 
     @Bean
     public JwtTokenStore jwtTokenStore() {
@@ -22,6 +31,11 @@ public class YbingAuthorizationTokenConfig {
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
         jwtAccessTokenConverter.setSigningKey("$24wrsfxv#xvsfwr!");
+        DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
+        DefaultUserAuthenticationConverter userAuthenticationConverter = new DefaultUserAuthenticationConverter();
+        userAuthenticationConverter.setUserDetailsService(ybingUserDetailService);
+        accessTokenConverter.setUserTokenConverter(userAuthenticationConverter);
+        jwtAccessTokenConverter.setAccessTokenConverter(accessTokenConverter);
         return jwtAccessTokenConverter;
     }
 
