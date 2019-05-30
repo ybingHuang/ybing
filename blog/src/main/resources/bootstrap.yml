@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: blog
+  mvc:
+    servlet:
+      path: /ybing/blog
+server:
+  port: 9088
+  servlet:
+    context-path: /
+logging:
+  file: logs/spring.log
+  file.max-size: 10MB
+  file.max-history: 3

@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    druid:
+      url: jdbc:mysql://localhost:3306/ybing_blog?autoReconnect=true&useUnicode=true&createDatabaseIfNotExist=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+      username: root
+      password:
+  liquibase:
+    url: classpath:/db/changelog/master.xml
+  redis:
+    host: localhost
+eureka:
+  client:
+    service-url:
+      DEFAULT_URL: http://localhost:8761/eureka/
+mapper:
+  identity: mysql
+  mappers: com.ybing.blog.common.YbBaseMapper
+  not-empty: true
+
+
+

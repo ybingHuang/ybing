@@ -13,7 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 /**
  * Created by niko on 2019/5/17.
  */
-@Configuration
 public class YbingWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override

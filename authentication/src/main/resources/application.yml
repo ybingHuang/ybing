@@ -23,6 +23,7 @@ mapper:
   not-empty: true
   mappers: com.ybing.authentication.common.YbingBaseMapper
   identity: mysql
+
 mybatis:
   type-aliases-package: com.ybing.authentication.entity
   mapper-locations: classpath:mapper/*.xml
