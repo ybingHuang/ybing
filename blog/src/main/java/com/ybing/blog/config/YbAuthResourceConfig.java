@@ -3,7 +3,7 @@ package com.ybing.blog.config;
 import com.ybing.blog.oauth.YbAuthFailureHandler;
 import com.ybing.blog.oauth.YbAuthFilter;
 import com.ybing.blog.oauth.YbAuthSuccessHandler;
-import com.ybing.blog.oauth.YbingUsernameAuthProvider;
+import com.ybing.blog.oauth.YbUsernameAuthProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -61,8 +61,8 @@ public class YbAuthResourceConfig extends ResourceServerConfigurerAdapter {
     }
 
     @Bean
-    public YbingUsernameAuthProvider ybUsernameAuthProvider() {
-        return new YbingUsernameAuthProvider();
+    public YbUsernameAuthProvider ybUsernameAuthProvider() {
+        return new YbUsernameAuthProvider();
     }
 
     @Bean

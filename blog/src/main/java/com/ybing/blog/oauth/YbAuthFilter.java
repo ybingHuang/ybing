@@ -40,7 +40,7 @@ public class YbAuthFilter extends AbstractAuthenticationProcessingFilter {
         if(StringUtils.isEmpty(loginDTO.getPassword()) || StringUtils.isEmpty(loginDTO.getUsername())) {
             throw new YbAuthenticationException("username or password is null");
         }
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword());
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(loginDTO, null);
         return getAuthenticationManager().authenticate(token);
     }
 }
