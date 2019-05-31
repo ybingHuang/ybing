@@ -23,6 +23,7 @@ public class YbUsernameAuthProvider implements AuthenticationProvider {
     @Autowired
     private YbUserDetailService ybUserDetailService;
 
+
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         YbLoginDTO loginDTO = (YbLoginDTO) authentication.getPrincipal();

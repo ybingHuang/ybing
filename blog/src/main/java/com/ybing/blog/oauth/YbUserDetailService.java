@@ -8,12 +8,14 @@ import com.ybing.common.oauth.YbUserDetailDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * Created by niko on 2019/5/30.
@@ -27,12 +29,19 @@ public class YbUserDetailService implements UserDetailsService {
     @Autowired
     private RedisTemplate redisTemplate;
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     @Value("${spring.application.name}")
     private String clientId;
 
-    private final static String SCOPE = "all";
+    private final static String SCOPE = "read";
 
     private final static String GRANT_TYPE = "password";
+
+    private final String AUTH_SERVER_ID = "AUTHENTICATION";
+
+    private final String TOKEN_URL = "/ybing/auth/oauth/token";
 
     public ResponseEntity<OAuth2AccessToken> doLogin(YbLoginDTO loginDTO) {
         YbAuthLoginDTO authLoginDTO = new YbAuthLoginDTO();
@@ -42,7 +51,24 @@ public class YbUserDetailService implements UserDetailsService {
         authLoginDTO.setClient_secret("qrafzv!24");
         authLoginDTO.setGrant_type(GRANT_TYPE);
         authLoginDTO.setScope(SCOPE);
-        ResponseEntity<OAuth2AccessToken> response = ybAuthFeignClient.accessToken(authLoginDTO);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        LinkedMultiValueMap body = new LinkedMultiValueMap();
+        body.add("username", loginDTO.getUsername());
+        body.add("password", loginDTO.getPassword());
+        body.add("client_id", clientId);
+        body.add("client_secret", "qrafzv!24");
+        body.add("grant_type", GRANT_TYPE);
+        body.add("scope", SCOPE);
+
+        HttpEntity entity = new HttpEntity(body, headers);
+
+        ResponseEntity<OAuth2AccessToken> response = restTemplate.exchange("http://" + AUTH_SERVER_ID + TOKEN_URL, HttpMethod.POST, entity, OAuth2AccessToken.class);
+
+
+        //ResponseEntity<OAuth2AccessToken> response = ybAuthFeignClient.accessToken(authLoginDTO);
         return response;
     }
 

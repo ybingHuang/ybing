@@ -1,11 +1,10 @@
 spring:
   datasource:
-    druid:
-      url: jdbc:mysql://localhost:3306/ybing_blog?autoReconnect=true&useUnicode=true&createDatabaseIfNotExist=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
-      username: root
-      password:
+    url: jdbc:mysql://localhost:3306/ybing_blog?autoReconnect=true&useUnicode=true&createDatabaseIfNotExist=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password:
   liquibase:
-    url: classpath:/db/changelog/master.xml
+    change-log: classpath:/db/changelog/master.xml
   redis:
     host: localhost
 eureka:
@@ -16,6 +15,7 @@ mapper:
   identity: mysql
   mappers: com.ybing.blog.common.YbBaseMapper
   not-empty: true
-
+mybatis:
+  type-aliases-package: com.ybing.blog.entity
 
 

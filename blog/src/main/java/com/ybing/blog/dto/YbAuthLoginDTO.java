@@ -9,7 +9,6 @@ import lombok.ToString;
  */
 @Getter
 @Setter
-@ToString
 public class YbAuthLoginDTO {
 
     private String username;
@@ -23,4 +22,11 @@ public class YbAuthLoginDTO {
     private String scope;
 
     private String client_secret;
+
+
+    @Override
+    public String toString() {
+        return "username=" + username + "password=" + password + "client_id=" + client_id +
+                "grant_type=" + grant_type + "scope=" + scope + "client_secret=" + client_secret;
+    }
 }

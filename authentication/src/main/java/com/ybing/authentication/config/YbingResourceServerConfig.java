@@ -15,8 +15,8 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 /**
  * Created by niko on 2019/5/23.
  */
-@Configuration
-@EnableResourceServer
+//@Configuration
+//@EnableResourceServer
 public class YbingResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Autowired
@@ -43,8 +43,5 @@ public class YbingResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
-    @Bean
-    public PasswordEncoder passwordEncryptor() {
-        return new BCryptPasswordEncoder();
-    }
+
 }
