@@ -26,16 +26,16 @@ public class YbingTokenEnhancer implements TokenEnhancer {
             return accessToken;
         }
         YbingUserDetailDTO userDetail = (YbingUserDetailDTO)authentication.getPrincipal();
-//        Map<String, Object> prop = new HashMap();
-//        prop.put("firstName", userDetail.getFirstName());
-//        prop.put("lastName", userDetail.getLastName());
-//        prop.put("email", userDetail.getEmail());
-//        prop.put("phone", userDetail.getPhoneNo());
-//        if(userDetail.getAuthorities() != null) {
-//            prop.put("role", userDetail.getAuthorities().stream().map(auth -> auth.getAuthority()).collect(Collectors.joining(",")));
-//        }
-//        prop.put("id", userDetail.getId());
-//        ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(prop);
+        Map<String, Object> prop = new HashMap();
+        prop.put("firstName", userDetail.getFirstName());
+        prop.put("lastName", userDetail.getLastName());
+        prop.put("email", userDetail.getEmail());
+        prop.put("phone", userDetail.getPhoneNo());
+        if(userDetail.getAuthorities() != null) {
+            prop.put("role", userDetail.getAuthorities().stream().map(auth -> auth.getAuthority()).collect(Collectors.joining(",")));
+        }
+        prop.put("id", userDetail.getId());
+        ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(prop);
         return jwtAccessTokenConverter.enhance(accessToken, authentication);
     }
 }
