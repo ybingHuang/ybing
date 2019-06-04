@@ -5,10 +5,8 @@ import com.ybing.authentication.service.YbingUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.oauth2.provider.token.AccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.DefaultUserAuthenticationConverter;
-import org.springframework.security.oauth2.provider.token.UserAuthenticationConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
@@ -18,8 +16,13 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 @Configuration
 public class YbingAuthorizationTokenConfig {
 
-    @Autowired
     private YbingUserDetailService ybingUserDetailService;
+
+
+    @Autowired
+    public YbingAuthorizationTokenConfig(YbingUserDetailService ybingUserDetailService) {
+        this.ybingUserDetailService = ybingUserDetailService;
+    }
 
     @Bean
     public JwtTokenStore jwtTokenStore() {

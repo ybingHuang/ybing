@@ -1,8 +1,8 @@
 eureka:
   client:
     service-url:
-      DEFAULT_URL: http://localhost:8761/eureka/
+      DEFAULT_URL: http://${eureka.address}:8761/eureka/
     register-with-eureka: false
     fetch-registry: false
   instance:
-    hostname: localhost
+    hostname: ${eureka.address}

@@ -25,7 +25,6 @@ public class YbingUserRepositoryTest {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Test
     public void addUser() {
         YbingUser user = new YbingUser();
         user.setEmail("12345s@ybing.com");

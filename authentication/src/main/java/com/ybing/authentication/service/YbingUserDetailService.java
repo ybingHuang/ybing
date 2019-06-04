@@ -29,6 +29,13 @@ public class YbingUserDetailService implements UserDetailsService{
     @Autowired
     private YbingRoleMapper ybingRoleMapper;
 
+//    @Autowired
+//    public YbingUserDetailService(PasswordEncoder passwordEncoder, YbingUserMapper ybingUserMapper, YbingRoleMapper ybingRoleMapper) {
+//        this.ybingRoleMapper = ybingRoleMapper;
+//        this.passwordEncoder = passwordEncoder;
+//        this.ybingUserMapper = ybingUserMapper;
+//    }
+
     public YbingUserDetailDTO loadUser(String username, String password) {
         YbingUser userParam = new YbingUser();
         userParam.setName(username);

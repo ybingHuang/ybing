@@ -22,17 +22,17 @@ public class YbingClientDetailMapperTest {
 
     @Test
     public void addClient() {
-        YbingClientDetail client = new YbingClientDetail();
-        client.setCode("test-client");
-        client.setStatus(1);
-        client.setClientSecret(passwordEncoder.encode("test"));
-        client.setAuthorities("test");
-        client.setAuthorizedGrantType("password");
-        client.setScope("read");
-        client.setCreateTime(new Timestamp(System.currentTimeMillis()));
-        client.setUpdateTime(new Timestamp(System.currentTimeMillis()));
-        client.setCreator("system");
-        client.setUpdateBy("system");
-        ybingClientDetailMapper.insertUseGeneratedKeys(client);
+//        YbingClientDetail client = new YbingClientDetail();
+//        client.setCode("test-client");
+//        client.setStatus(1);
+//        client.setClientSecret(passwordEncoder.encode("test"));
+//        client.setAuthorities("test");
+//        client.setAuthorizedGrantType("password");
+//        client.setScope("read");
+//        client.setCreateTime(new Timestamp(System.currentTimeMillis()));
+//        client.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+//        client.setCreator("system");
+//        client.setUpdateBy("system");
+//        ybingClientDetailMapper.insertUseGeneratedKeys(client);
     }
 }

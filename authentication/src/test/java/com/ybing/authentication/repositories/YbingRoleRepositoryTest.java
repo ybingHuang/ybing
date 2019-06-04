@@ -21,14 +21,15 @@ public class YbingRoleRepositoryTest {
     private YbingRoleMapper ybingRoleMapper;
 
 
+    @Test
     public void save() {
-        YbingRole role = new YbingRole();
-        role.setName("test2");
-        role.setDescription("test1");
-        role.setUpdateBy("system");
-        role.setCreator("system");
-        ybingRoleMapper.insertUseGeneratedKeys(role);
-        System.out.println("new role id : " + role.getId());
+//        YbingRole role = new YbingRole();
+//        role.setName("test2");
+//        role.setDescription("test1");
+//        role.setUpdateBy("system");
+//        role.setCreator("system");
+//        ybingRoleMapper.insertUseGeneratedKeys(role);
+//        System.out.println("new role id : " + role.getId());
     }
 
 }

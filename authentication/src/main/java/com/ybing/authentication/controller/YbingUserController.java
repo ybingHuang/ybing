@@ -17,8 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class YbingUserController {
 
-    @Autowired
     private YbingUserDetailService ybingUserDetailService;
+
+    @Autowired
+    public YbingUserController(YbingUserDetailService ybingUserDetailService) {
+        this.ybingUserDetailService = ybingUserDetailService;
+    }
 
     @GetMapping("/{name}")
     public ResponseEntity<YbingUserDetailDTO> getUserByName(@PathVariable("name") String username) {
