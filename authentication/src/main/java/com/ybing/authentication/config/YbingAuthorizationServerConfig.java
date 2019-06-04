@@ -16,9 +16,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
-import org.springframework.security.oauth2.provider.token.TokenEnhancer;
-import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
+import org.springframework.security.oauth2.provider.token.*;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
@@ -49,8 +47,8 @@ public class YbingAuthorizationServerConfig extends AuthorizationServerConfigure
     @Autowired
     private YbingTokenEnhancer ybingTokenEnhancer;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private YbingUserDetailService ybingUserDetailService;
@@ -58,7 +56,10 @@ public class YbingAuthorizationServerConfig extends AuthorizationServerConfigure
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security.passwordEncoder(passwordEncoder).tokenKeyAccess("permitAll()")
+//        security.passwordEncoder(passwordEncoder).tokenKeyAccess("permitAll()")
+//                .checkTokenAccess("permitAll()")
+//                .allowFormAuthenticationForClients();
+        security.tokenKeyAccess("permitAll()")
                 .checkTokenAccess("permitAll()")
                 .allowFormAuthenticationForClients();
     }
@@ -97,7 +98,7 @@ public class YbingAuthorizationServerConfig extends AuthorizationServerConfigure
 
     @Bean(name = "ybingAuthenticationProvider")
     public AuthenticationManager authenticationManager() {
-        return new YbingAuthenticationProvider();
+        return new YbingAuthenticationProvider(ybingUserDetailService);
     }
 
     @Bean
@@ -108,5 +109,30 @@ public class YbingAuthorizationServerConfig extends AuthorizationServerConfigure
     @Bean
     public PasswordEncoder passwordEncryptor() {
         return new BCryptPasswordEncoder();
+    }
+
+
+
+    @Bean
+    public JwtTokenStore jwtTokenStore() {
+        JwtTokenStore jwtTokenStore = new JwtTokenStore(jwtAccessTokenConverter());
+        return jwtTokenStore;
+    }
+
+    @Bean
+    public JwtAccessTokenConverter jwtAccessTokenConverter() {
+        JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
+        jwtAccessTokenConverter.setSigningKey("$24wrsfxv#xvsfwr!");
+        DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
+        DefaultUserAuthenticationConverter userAuthenticationConverter = new DefaultUserAuthenticationConverter();
+        userAuthenticationConverter.setUserDetailsService(ybingUserDetailService);
+        accessTokenConverter.setUserTokenConverter(userAuthenticationConverter);
+        jwtAccessTokenConverter.setAccessTokenConverter(accessTokenConverter);
+        return jwtAccessTokenConverter;
+    }
+
+    @Bean(name = "ybingTokenEnhancer")
+    public YbingTokenEnhancer tokenEnhancer() {
+        return new YbingTokenEnhancer();
     }
 }

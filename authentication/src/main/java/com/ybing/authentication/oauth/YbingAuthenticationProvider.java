@@ -17,8 +17,11 @@ import java.util.Objects;
 @Slf4j
 public class YbingAuthenticationProvider implements AuthenticationManager {
 
-    @Autowired
     private YbingUserDetailService userDetailService;
+
+    public YbingAuthenticationProvider(YbingUserDetailService userDetailService) {
+        this.userDetailService = userDetailService;
+    }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
