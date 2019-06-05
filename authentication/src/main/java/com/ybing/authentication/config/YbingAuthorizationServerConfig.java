@@ -47,19 +47,19 @@ public class YbingAuthorizationServerConfig extends AuthorizationServerConfigure
     @Autowired
     private YbingTokenEnhancer ybingTokenEnhancer;
 
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private YbingUserDetailService ybingUserDetailService;
 
+    public YbingAuthorizationServerConfig() {
+        log.info("load ybing auth server config");
+    }
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-//        security.passwordEncoder(passwordEncoder).tokenKeyAccess("permitAll()")
-//                .checkTokenAccess("permitAll()")
-//                .allowFormAuthenticationForClients();
-        security.tokenKeyAccess("permitAll()")
+        security.passwordEncoder(passwordEncoder).tokenKeyAccess("permitAll()")
                 .checkTokenAccess("permitAll()")
                 .allowFormAuthenticationForClients();
     }
@@ -98,7 +98,7 @@ public class YbingAuthorizationServerConfig extends AuthorizationServerConfigure
 
     @Bean(name = "ybingAuthenticationProvider")
     public AuthenticationManager authenticationManager() {
-        return new YbingAuthenticationProvider(ybingUserDetailService);
+        return new YbingAuthenticationProvider();
     }
 
     @Bean
@@ -111,28 +111,4 @@ public class YbingAuthorizationServerConfig extends AuthorizationServerConfigure
         return new BCryptPasswordEncoder();
     }
 
-
-
-    @Bean
-    public JwtTokenStore jwtTokenStore() {
-        JwtTokenStore jwtTokenStore = new JwtTokenStore(jwtAccessTokenConverter());
-        return jwtTokenStore;
-    }
-
-    @Bean
-    public JwtAccessTokenConverter jwtAccessTokenConverter() {
-        JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
-        jwtAccessTokenConverter.setSigningKey("$24wrsfxv#xvsfwr!");
-        DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
-        DefaultUserAuthenticationConverter userAuthenticationConverter = new DefaultUserAuthenticationConverter();
-        userAuthenticationConverter.setUserDetailsService(ybingUserDetailService);
-        accessTokenConverter.setUserTokenConverter(userAuthenticationConverter);
-        jwtAccessTokenConverter.setAccessTokenConverter(accessTokenConverter);
-        return jwtAccessTokenConverter;
-    }
-
-    @Bean(name = "ybingTokenEnhancer")
-    public YbingTokenEnhancer tokenEnhancer() {
-        return new YbingTokenEnhancer();
-    }
 }

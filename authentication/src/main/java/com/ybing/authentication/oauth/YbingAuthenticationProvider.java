@@ -1,6 +1,6 @@
 package com.ybing.authentication.oauth;
 
-import com.ybing.authentication.service.YbingUserDetailService;
+import com.ybing.authentication.service.YbingAuthUserService;
 import com.ybing.authentication.struct.YbingUserDetailDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,16 +17,13 @@ import java.util.Objects;
 @Slf4j
 public class YbingAuthenticationProvider implements AuthenticationManager {
 
-    private YbingUserDetailService userDetailService;
-
-    public YbingAuthenticationProvider(YbingUserDetailService userDetailService) {
-        this.userDetailService = userDetailService;
-    }
+    @Autowired
+    private YbingAuthUserService ybingAuthUserDetailService;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) authentication;
-        YbingUserDetailDTO userDetailDTO = userDetailService.loadUser((String) token.getPrincipal(), (String) token.getCredentials());
+        YbingUserDetailDTO userDetailDTO = ybingAuthUserDetailService.loadUser((String) token.getPrincipal(), (String) token.getCredentials());
         if (!Objects.isNull(userDetailDTO)) {
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetailDTO, null, userDetailDTO.getAuthorities());
             return auth;

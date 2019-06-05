@@ -1,8 +1,9 @@
 eureka:
   client:
     service-url:
-      DEFAULT_URL: http://localhost:8761/eureka/
-#      DEFAULT_URL: http://${eureka.address}:8761/eureka/
+      defaultZone: http://localhost:8761/eureka/
+#      defaultZone: http://${eureka.address}:8761/eureka/
+
 spring:
   datasource:
     druid:
